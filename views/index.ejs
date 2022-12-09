@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>socket</title>
+  </head>
+  <body>
+    <h1>teste bot</h1>
+
+    <input type="text" placeholder="seu nome" id="msg" oninput="enviar()" />
+    <button>enviar</button>
+    <hr />
+    <div
+      style="background-color: black; padding: 5px; width: 500px; height: 300px"
+    >
+      <p
+        id="res"
+        style="background-color: black; width: 100%; color: white"
+      ></p>
+    </div>
+
+    <!--inportação socket.io -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"></script>
+
+    <script>
+      //conexão a instancia do back-end
+      let socket = io("http://localhost:3000");
+
+      //evento de desconexão
+      socket.on("disconnect", () => {});
+
+      //enviando dado por evento
+      socket.emit("boasvindas", { nome: "lauricio de souza" });
+
+      const enviar = () => {
+        let input = document.getElementById("msg");
+        let res = document.getElementById("res");
+        socket.emit("msg", input.value);
+      };
+
+      socket.on("resultado", (data) => {
+        res.innerHTML = data;
+      });
+    </script>
+  </body>
+</html>
