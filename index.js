@@ -13,16 +13,14 @@ app.get("/", (req, res) => {
 io.on("connection", (socket) => {
   //tratando evento de desconexão
   socket.on("disconnect", () => {
-    console.log("X desconectou");
-  });
-
-  //eventos especificos que virão do front
-  socket.on("boasvindas", (data) => {
-    console.log(data);
+    console.log("desconectou");
   });
 
   socket.on("msg", (data) => {
-    socket.emit("resultado", "seja bem vindo " + data + " !");
+    // enviado mensagem apartir do servidor assim o evento será passado para todos conectados no servido;
+    io.emit("showmsg", data);
+
+    //outra forma seria usar socket.bradcast.emit("showmsg") usando esse metodo o evento seria passado para todos conectados no servidor menos para o usuario que o emitiu
   });
 });
 
