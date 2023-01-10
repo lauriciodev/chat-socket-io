@@ -24,6 +24,8 @@ io.on("connection", (socket) => {
   });
 });
 
+
+//lau
 http.listen(3000, () => {
   console.log("servidor online");
 });
