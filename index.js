@@ -9,8 +9,10 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+//
 //evento de conexão
 io.on("connection", (socket) => {
+
   //tratando evento de desconexão
   socket.on("disconnect", () => {
     console.log("desconectou");
